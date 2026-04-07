@@ -89,29 +89,43 @@ sudo pacman -S cmake ninja qt6-base qt6-webengine qt6-positioning
 ```bash
 git clone https://github.com/keshavbhatt/whatsie.git
 cd whatsie
-make build-release
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
 ./build/whatsie
 ```
 
 ### Install (Optional)
 
 ```bash
-# Install to /usr/local
-make install
+# Install to default prefix (typically /usr/local)
+sudo cmake --install build
 
-# OR install system-wide to /usr
-sudo make install INSTALL_PREFIX=/usr
+# OR install to /usr
+sudo cmake --install build --prefix /usr
 ```
 
 ### Common Build Commands
 
 ```bash
-make build-release    # Build in Release mode
-make build-debug      # Build in Debug mode
-make install          # Install to /usr/local
-make run              # Run the built executable
-make clean            # Clean build artifacts
-make help             # Show all available targets
+# Configure and build in Release mode
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+
+# Configure and build in Debug mode
+cmake -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+
+# Install the application
+sudo cmake --install build
+
+# Run the built executable
+./build/whatsie
+
+# Clean build artifacts
+rm -rf build
+
+# Reconfigure from scratch
+rm -rf build && cmake -B build -DCMAKE_BUILD_TYPE=Release
 ```
 
 ### Troubleshooting
@@ -119,11 +133,10 @@ make help             # Show all available targets
 | Problem | Solution |
 |---------|----------|
 | CMake not found | `sudo apt install cmake` |
+| CMake version too old | Install CMake >= 3.24 from official website or backports |
 | Qt6 not found | `sudo apt install qt6-base-dev qt6-webengine-dev` |
-| Ninja not found | `sudo apt install ninja-build` |
-| Permission denied | `make install INSTALL_PREFIX=~/.local` |
-
-For detailed build instructions, see `BUILD_QUICK_REFERENCE.md`
+| notify-qt not found | Install notify-qt6 or initialize the git submodule: `git submodule update --init --recursive` |
+| Permission denied on install | Use `cmake --install build --prefix ~/.local` |
 
 
 

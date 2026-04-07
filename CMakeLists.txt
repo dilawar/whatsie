@@ -30,7 +30,7 @@ string(TIMESTAMP BUILD_TIMESTAMP "%Y-%m-%d %H:%M:%S")
 
 # Set Qt version - Require Qt 6.10 minimum
 set(QT_VERSION_MAJOR 6)
-set(QT_VERSION_MINOR 10)
+set(QT_VERSION_MINOR 8)
 
 # Set CMake policies
 set(CMAKE_AUTOMOC ON)
